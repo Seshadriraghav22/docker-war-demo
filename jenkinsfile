@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'war', url: 'https://github.com/Seshadriraghav22/M12.git'
+                git 'https://github.com/Seshadriraghav22/docker-war-demo.git'
             }
         }
         stage('Build') {
