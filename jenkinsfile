@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git branch: 'war', url: 'https://github.com/Seshadriraghav22/M12.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean'
+                sh 'mvn install'
+            }
+        }
+        stage('Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t app:latest .'
+                }
+            }
+        }
+        stage('Deploy to Server') {
+            steps {
+                script {
+                    sh 'docker run -d -p 8082:8080 app:latest'
+                }
+            }
+        }
+    }
+}
