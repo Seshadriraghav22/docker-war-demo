@@ -28,7 +28,8 @@ jobs:
       - name: Upload WAR as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: war-artifact
+          name: war-artifact   
+          path: target/*.war
 
  docker:
    build:
@@ -53,7 +54,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
+
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/docker-war-demo:latest
           
  
   
-          path: target/*.war
