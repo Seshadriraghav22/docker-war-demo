@@ -26,3 +26,9 @@ jobs:
      steps:
       - name: war
         run: mvn clean package
+
+        - name: Upload WAR as artifact
+          uses: actions/upload-artifact@v3
+          with:
+            name: war-artifact
+            path: target/*.war
